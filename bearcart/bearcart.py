@@ -167,11 +167,14 @@ class Chart(object):
             '''Type check values for JSON serialization. Native Python JSON
             serialization will not recognize some Numpy data types properly,
             so they must be explictly converted.'''
+
             if pd.isnull(value):
                 return None
             elif (isinstance(value, pd.tslib.Timestamp) or
                   isinstance(value, pd.Period)):
-                return time.mktime(value.timetuple())
+                return (time.mktime(value.timetuple()) +
+                        value.microsecond * 1e-6 +
+                        value.nanosecond * 1e-9)
             elif isinstance(value, (int, np.integer)):
                 return int(value)
             elif isinstance(value, (float, np.float_)):
