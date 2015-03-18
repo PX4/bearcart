@@ -4,6 +4,7 @@ var graph = new Rickshaw.Graph( {
                 width: {{ width }},
                 height: {{ height}},
                 renderer: '{{ render }}',
+                interpolation: 'linear',
                 series: [{% for data in dataset : %}
                          {name: '{{ data['name'] }}',
                           color: {{ data['color'] }},
